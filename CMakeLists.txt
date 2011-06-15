@@ -78,8 +78,6 @@ set(CPACK_DEBIAN_BUILD_DEPENDS
   boost-cmake
   flex bison
   libboost-asio-dev
-  libboost-compatibility-dev
-  libboost-signals-dev
   libglewmx1.5-dev
   libgl1-mesa-dev
   )
