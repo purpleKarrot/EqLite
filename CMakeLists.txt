@@ -24,18 +24,26 @@ file(COPY "${upstream_dir}/libs/"
     REGEX "[.](cpp|h|ipp|l|y)$"
   )
 
+file(REMOVE_RECURSE
+  "${EQ_SOURCE_DIR}/GLEW"
+  "${EQ_SOURCE_DIR}/pthreads"
+  "${EQ_SOURCE_DIR}/seq"
+  )
+
 file(COPY eq_source/
   DESTINATION "${EQ_SOURCE_DIR}"
   )
 
 set(EQUALIZER_BUILD_EXAMPLES OFF CACHE INTERNAL "" FORCE)
 set(EQUALIZER_BUILD_TESTS    OFF CACHE INTERNAL "" FORCE)
+set(EQUALIZER_USE_CUDA       OFF CACHE INTERNAL "" FORCE)
+set(EQUALIZER_USE_OSG        OFF CACHE INTERNAL "" FORCE)
 
 add_subdirectory("${upstream_dir}" ${CMAKE_BINARY_DIR}/Equalizer
   EXCLUDE_FROM_ALL
   )
 
-file(COPY "${CMAKE_BINARY_DIR}/Equalizer/include/vmmlib/"
+file(COPY "${CMAKE_BINARY_DIR}/Equalizer/vmmlib/"
   DESTINATION "${EQ_SOURCE_DIR}/vmmlib"
   FILES_MATCHING REGEX "[.]hpp$"
   )

@@ -16,31 +16,31 @@ function(purple_add_library name)
     ${ARGN}
     )
 
-  set(defines_dir ${CMAKE_BINARY_DIR}/Equalizer/include/${LIB_HEADERS_PREFIX})
+  set(defines_dir ${CMAKE_BINARY_DIR}/Equalizer/${LIB_HEADERS_PREFIX})
   set(defines_file definesLinux.h)
 
   if(name STREQUAL "co_base")
     set(lib_name "base")
     configure_file("${defines_dir}${defines_file}"
-      "${EQ_SOURCE_DIR}/collage/base/${defines_file}" COPYONLY)
+      "${EQ_SOURCE_DIR}/co/base/${defines_file}" COPYONLY)
     list(APPEND LIB_HEADERS ${defines_file})
   elseif(name STREQUAL "co")
     set(lib_name "net")
     configure_file("${defines_dir}version.h"
-      "${EQ_SOURCE_DIR}/collage/version.h" COPYONLY)
+      "${EQ_SOURCE_DIR}/co/version.h" COPYONLY)
     list(APPEND LIB_HEADERS version.h)
-  elseif(name STREQUAL "eq_fabric")
+  elseif(name STREQUAL "EqualizerFabric")
     set(lib_name "fabric")
-  elseif(name STREQUAL "eq_client")
+  elseif(name STREQUAL "Equalizer")
     set(lib_name "client")
-    configure_file("${defines_dir}version.h"
-      "${EQ_SOURCE_DIR}/client/version.h" COPYONLY)
-    configure_file("${defines_dir}${defines_file}"
-      "${EQ_SOURCE_DIR}/client/${defines_file}" COPYONLY)
-    file(WRITE "${EQ_SOURCE_DIR}/client/GL/glew.h"
+    configure_file("${defines_dir}/version.h"
+      "${EQ_SOURCE_DIR}/eq/client/version.h" COPYONLY)
+    configure_file("${defines_dir}/${defines_file}"
+      "${EQ_SOURCE_DIR}/eq/client/${defines_file}" COPYONLY)
+    file(WRITE "${EQ_SOURCE_DIR}/eq/GL/glew.h"
       "#include <GL/glew.h>\n"
       )
-    file(WRITE "${EQ_SOURCE_DIR}/client/GL/glxew.h"
+    file(WRITE "${EQ_SOURCE_DIR}/eq/GL/glxew.h"
       "#include <GL/glxew.h>\n"
       )
     list(APPEND LIB_HEADERS
@@ -53,6 +53,8 @@ function(purple_add_library name)
     set(lib_name "admin")
   elseif(name STREQUAL "EqualizerServer")
     set(lib_name "server")
+  elseif(name STREQUAL "Sequel")
+    return()
   else()
     message(FATAL_ERROR "Equalizer has a new library: ${name}")
   endif()
