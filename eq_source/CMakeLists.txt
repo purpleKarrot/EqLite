@@ -32,13 +32,6 @@ include_directories(
   ${EqLite_BINARY_DIR}
   )
 
-install(DIRECTORY co eq
-  DESTINATION include
-  CONFIGURATIONS Release
-  COMPONENT develop
-  REGEX "[.]h(pp)?$"
-  )
-
 bison_target(PARSER eq/server/loader.y
   ${CMAKE_BINARY_DIR}/parser.cpp 
   COMPILE_FLAGS "-l -p eqLoader_"
@@ -100,7 +93,9 @@ target_link_libraries(EqServer
   EqualizerServer
   )
 
-install(TARGETS Collage Equalizer EqualizerAdmin EqualizerServer EqServer
+set(eq_libraries Collage Equalizer EqualizerAdmin EqualizerServer)
+
+install(TARGETS ${eq_libraries} EqServer EXPORT Release
   ARCHIVE
     DESTINATION lib
     COMPONENT develop
@@ -115,7 +110,7 @@ install(TARGETS Collage Equalizer EqualizerAdmin EqualizerServer EqServer
     CONFIGURATIONS Release
   )
 
-install(TARGETS Collage Equalizer EqualizerAdmin EqualizerServer
+install(TARGETS ${eq_libraries} EXPORT Debug
   ARCHIVE
     DESTINATION lib
     COMPONENT debug
@@ -128,6 +123,33 @@ install(TARGETS Collage Equalizer EqualizerAdmin EqualizerServer
     DESTINATION bin
     COMPONENT debug
     CONFIGURATIONS Debug
+  )
+
+install(EXPORT Release
+  DESTINATION share/Equalizer
+  FILE Equalizer.cmake
+  CONFIGURATIONS Release
+  COMPONENT develop
+  )
+
+install(EXPORT Debug
+  DESTINATION share/Equalizer
+  FILE Equalizer.cmake
+  CONFIGURATIONS Debug
+  COMPONENT develop
+  )
+
+install(FILES EqualizerConfig.cmake EqualizerConfigVersion.cmake
+  DESTINATION share/Equalizer
+  CONFIGURATIONS Release
+  COMPONENT develop
+  )
+
+install(DIRECTORY co eq
+  DESTINATION include
+  CONFIGURATIONS Release
+  COMPONENT develop
+  REGEX "[.]h(pp)?$"
   )
 
 install(DIRECTORY configs
