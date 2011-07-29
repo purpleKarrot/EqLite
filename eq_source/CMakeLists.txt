@@ -145,11 +145,11 @@ install(FILES EqualizerConfig.cmake EqualizerConfigVersion.cmake
   COMPONENT develop
   )
 
-install(DIRECTORY co eq
+install(DIRECTORY co eq vmmlib
   DESTINATION include
   CONFIGURATIONS Release
   COMPONENT develop
-  REGEX "[.]h(pp)?$"
+  FILES_MATCHING REGEX "[.](hpp|ipp|h)$"
   )
 
 install(DIRECTORY configs

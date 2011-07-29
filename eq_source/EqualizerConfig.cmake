@@ -8,7 +8,7 @@
 
 set(Equalizer_INCLUDE_DIRS "/usr/include")
 
-include(Equalizer.cmake)
+include("${CMAKE_CURRENT_LIST_DIR}/Equalizer.cmake")
 
 set(EQUALIZER_Collage_LIBRARY Collage)
 set(EQUALIZER_Client_LIBRARY Equalizer)
