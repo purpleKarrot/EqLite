@@ -92,10 +92,25 @@ add_executable(EqServer
 target_link_libraries(EqServer
   EqualizerServer
   )
+install(TARGETS EqServer
+  ARCHIVE
+    DESTINATION lib
+    COMPONENT develop
+    CONFIGURATIONS Release
+  LIBRARY
+    DESTINATION lib
+    COMPONENT runtime
+    CONFIGURATIONS Release
+  RUNTIME
+    DESTINATION bin
+    COMPONENT runtime
+    CONFIGURATIONS Release
+  )
 
 set(eq_libraries Collage Equalizer EqualizerAdmin EqualizerServer)
+set_property(TARGET ${eq_libraries} PROPERTY DEBUG_POSTFIX "_d")
 
-install(TARGETS ${eq_libraries} EqServer EXPORT Release
+install(TARGETS ${eq_libraries} EXPORT Release
   ARCHIVE
     DESTINATION lib
     COMPONENT develop
